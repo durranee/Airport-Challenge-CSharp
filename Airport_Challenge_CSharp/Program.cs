@@ -26,12 +26,25 @@ namespace Airport_Challenge_CSharp
 
     }
 
+    public class Weather
+    {
+        Boolean[] stormy;
+
+        public Weather(){
+            stormy = new Boolean[] { false, false, false, false, true };
+        }
+
+        public Boolean isItStormy(){
+            Random rnd = new Random();
+            return stormy[rnd.Next(0, 5)];
+        }
+    }
+
+
     class MainClass
     {
         public static void Main()
         {
-                
-
         }
     }
 }
