@@ -49,19 +49,33 @@ namespace Airport_Challenge_CSharp
 
     public class Airport
     {
-        public string name;
-        public int capacity;
-        public List<Plane> hanger = new List<Plane>();
+        string name;
+        int capacity;
+        List<Plane> hanger = new List<Plane>();
 
-
-        //public Plane[] hanger;
 
         public Airport(string _name, int _capacity = 30)
         {
             capacity = _capacity;
-            //hanger = new Plane[capacity];
             name = _name;
         }
+
+        public string getName(){
+            return name;
+        }
+
+        public int getCapacity(){
+            return capacity;
+        }
+
+        public void updateCapacity(int newCapacity){
+            capacity = newCapacity;
+        }
+
+        public List<Plane> getHanger(){
+            return hanger;    
+        }
+
 
         public bool isFull()
         {
@@ -83,6 +97,18 @@ namespace Airport_Challenge_CSharp
 
         }
 
+        public void takeOff(Plane plane, bool stormy){
+            if (plane.getAirportName() != name)
+                throw new System.InvalidOperationException("Plane not at this airport.");
+
+            if (stormy)
+                throw new System.InvalidOperationException("BAD WEATHER CONDITION! Cannot allow to land.");
+
+            plane.setAirportName(null);
+            hanger.Remove(plane);
+   
+        }
+
     }
 
 
@@ -91,12 +117,31 @@ namespace Airport_Challenge_CSharp
     {
         public static void Main()
         {
-            //Airport  airport = new Airport("Heathrow", 3);
-            //Plane plane1 = new Plane(1);
-            //airport.land(plane1, false);
+            //test system setup
+            //change weather.isItStormy() to false to avoid random error
+    
+            Airport  airport = new Airport("Heathrow", 3);
+            Plane plane1 = new Plane(1);
+            Weather weather = new Weather();
+            airport.land(plane1, weather.isItStormy());
 
-            //Console.WriteLine("Capacity = "+airport.capacity);
-            //Console.WriteLine("Hanger length: "+ airport.hanger.Count);
+            Console.WriteLine("Capacity = "+airport.getCapacity());
+            Console.WriteLine("Hanger length: "+ airport.getHanger().Count);
+
+            airport.updateCapacity(20);
+            Console.WriteLine("Capacity = " + airport.getCapacity());
+            Console.WriteLine("Hanger length: " + airport.getHanger().Count);
+
+            Console.WriteLine(airport.getHanger());
+            airport.takeOff(plane1, weather.isItStormy());
+            Console.WriteLine("plane took off hanger should be empty");
+
+            Console.WriteLine("Capacity = " + airport.getCapacity());
+            Console.WriteLine("Hanger length: " + airport.getHanger().Count);
+
+            Console.WriteLine(airport.getHanger());
+
+
         }
     }
 }
