@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Airport_Challenge_CSharp
 {
@@ -50,18 +51,21 @@ namespace Airport_Challenge_CSharp
     {
         public string name;
         public int capacity;
+        public List<Plane> hanger = new List<Plane>();
 
-        public Plane[] hanger;
+
+        //public Plane[] hanger;
+
         public Airport(string _name, int _capacity = 30)
         {
             capacity = _capacity;
-            hanger = new Plane[capacity];
+            //hanger = new Plane[capacity];
             name = _name;
         }
 
         public bool isFull()
         {
-            return hanger.Length >= capacity;
+            return (hanger.Count >= capacity);
         }
 
         public void land(Plane plane, bool stormy){
@@ -74,9 +78,9 @@ namespace Airport_Challenge_CSharp
             if (stormy)
                 throw new System.InvalidOperationException("BAD WEATHER CONDITION! Cannot allow to land.");
 
-            //plane.setAirportName(name);
-            ////hanger.
-            
+            plane.setAirportName(name);
+            hanger.Add(plane);
+
         }
 
     }
@@ -87,6 +91,12 @@ namespace Airport_Challenge_CSharp
     {
         public static void Main()
         {
+            //Airport  airport = new Airport("Heathrow", 3);
+            //Plane plane1 = new Plane(1);
+            //airport.land(plane1, false);
+
+            //Console.WriteLine("Capacity = "+airport.capacity);
+            //Console.WriteLine("Hanger length: "+ airport.hanger.Count);
         }
     }
 }
